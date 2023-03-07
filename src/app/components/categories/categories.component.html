@@ -1,1 +1,18 @@
-<p>categories works!</p>
+<div class="centered">
+  <mat-form-field appearance="fill" class="filter">
+    <mat-label>Filter categories</mat-label>
+    <input matInput (keyup)="applyFilter($event)" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let cat of categories">
+      <div class="list-item">
+        <span class="item-name">
+          {{ cat.name }}
+        </span>
+        <span class="item-label"> {{ cat.products.length }} items </span>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
