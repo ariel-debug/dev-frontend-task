@@ -1,0 +1,41 @@
+<div class="centered">
+  <div class="carousel">
+    <div *ngFor="let slide of productSlide; let i = index" class="slide">
+      <div
+        *ngIf="i === currentSlide"
+        [@carouselAnimation]="{
+          value: '',
+          params: { direction: this.direction === 'RL' ? '100' : '-100' }
+        }"
+      >
+        <div class="card" *ngFor="let product of slide">
+          <div class="logo">
+            <span>
+              {{ iterateString(product.name) }}
+            </span>
+          </div>
+          <div class="description">
+            <span class="header">{{ product.name }}</span>
+            <span class="price">{{ product.unitPrice }} Leke</span>
+          </div>
+          <div class="actions">
+            <button mat-mini-fab color="warn">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="products.length > 0">
+    <button mat-icon-button (click)="onPreviousClick()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onNextClick()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</div>

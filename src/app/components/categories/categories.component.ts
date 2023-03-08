@@ -1,4 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+import { filter, map } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { Category } from 'src/app/model/category.model';
 import { MainService } from 'src/app/services/main.service';
 
@@ -11,13 +14,26 @@ export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
   itemsCopy = this.categories;
   categoryItems: number = 0;
+  appstate$!: Observable<any>;
   constructor(
     private mainService: MainService,
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getData();
+    this.handleState();
+  }
+
+  handleState() {
+    this.appstate$ = this.router.events.pipe(
+      filter((e) => e instanceof NavigationStart),
+      map(() => {
+        const currentState = this.router.getCurrentNavigation();
+        return currentState?.extras.state;
+      })
+    );
   }
 
   ngAfterContentChecked() {
@@ -29,6 +45,7 @@ export class CategoriesComponent implements OnInit {
       console.log(res);
       this.categories = res.categories;
       this.itemsCopy = res.categories;
+      this.mainService.navbarTitle.next(res.businessName);
     });
   }
 
@@ -37,5 +54,11 @@ export class CategoriesComponent implements OnInit {
     this.categories = this.itemsCopy.filter((item: Category) => {
       return item.name.toLowerCase().indexOf(filterValue.toLowerCase()) >= 0;
     });
+  }
+
+  goToProducts(name: string, category: Category) {
+    this.router.navigate([`${name}`], { skipLocationChange: true });
+    this.mainService.category.next(category);
+    sessionStorage.setItem('category', JSON.stringify(category));
   }
 }

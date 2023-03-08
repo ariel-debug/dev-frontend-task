@@ -5,12 +5,15 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   <mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let cat of categories">
+    <mat-list-option
+      *ngFor="let category of categories"
+      (click)="goToProducts(category.name, category)"
+    >
       <div class="list-item">
         <span class="item-name">
-          {{ cat.name }}
+          {{ category.name }}
         </span>
-        <span class="item-label"> {{ cat.products.length }} items </span>
+        <span class="item-label"> {{ category.products.length }} items </span>
       </div>
       <mat-divider></mat-divider>
     </mat-list-option>

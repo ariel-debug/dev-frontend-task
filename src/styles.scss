@@ -56,8 +56,14 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow: hidden;
 }
 
 router-outlet {
   height: 100vh;
+}
+
+.centered {
+  padding: 0 1rem;
+  margin: 1rem auto;
 }

@@ -9,9 +9,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { MainService } from './services/main.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductsComponent } from './components/products/products.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, CategoriesComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriesComponent, ProductsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

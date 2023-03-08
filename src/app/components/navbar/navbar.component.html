@@ -2,7 +2,10 @@
   <button mat-icon-button (click)="toggleDarkMode()">
     <mat-icon>{{ !modeToggler ? "dark_mode" : "light_mode" }}</mat-icon>
   </button>
-  <span>Categories</span>
+  <button mat-icon-button (click)="navigateBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>{{ navbarTitle }}</span>
   <button mat-icon-button>
     <mat-icon>shopping_cart</mat-icon>
   </button>
