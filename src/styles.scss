@@ -14,6 +14,9 @@
 $dev-demo-primary: mat.define-palette(mat.$deep-purple-palette);
 $dev-demo-accent: mat.define-palette(mat.$deep-orange-palette, 900);
 
+$dev-demo-primary-dark: mat.define-palette(mat.$deep-purple-palette, 300);
+$dev-demo-accent-dark: mat.define-palette(mat.$deep-orange-palette, 200);
+
 // The warn palette is optional (defaults to red).
 $dev-demo-warn: mat.define-palette(mat.$red-palette);
 
@@ -32,8 +35,8 @@ $dev-demo-theme: mat.define-light-theme(
 $dev-demo-dark-theme: mat.define-dark-theme(
   (
     color: (
-      primary: $dev-demo-primary,
-      accent: $dev-demo-accent,
+      primary: $dev-demo-primary-dark,
+      accent: $dev-demo-accent-dark,
       warn: $dev-demo-warn,
     ),
   )
@@ -62,6 +65,7 @@ body {
 .centered {
   padding: 0 1rem;
   margin: 1rem auto;
+  height: 75vh;
 }
 
 $colors: #6750a4, #b3261e, #7d5260, #e46962, #21005d, #31111d, #878f99;
@@ -87,4 +91,60 @@ $colors: #6750a4, #b3261e, #7d5260, #e46962, #21005d, #31111d, #878f99;
 .cdk-overlay-pane.dialog {
   width: 90%;
   max-width: 100% !important;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 904px) {
+  .centered {
+    width: 65%;
+  }
+
+  .bottom {
+    width: 65%;
+  }
+
+  .cdk-overlay-pane.dialog {
+    width: 60%;
+  }
+}
+
+@media only screen and (min-width: 905px) and (max-width: 1239px) {
+  .centered {
+    width: 40%;
+  }
+
+  .bottom {
+    width: 40%;
+  }
+
+  .cdk-overlay-pane.dialog {
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width: 1240px) and (max-width: 1439px) {
+  .centered {
+    width: 30%;
+  }
+
+  .bottom {
+    width: 30%;
+  }
+
+  .cdk-overlay-pane.dialog {
+    width: 30%;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .centered {
+    width: 25%;
+  }
+
+  .bottom {
+    width: 25%;
+  }
+
+  .cdk-overlay-pane.dialog {
+    width: 25%;
+  }
 }

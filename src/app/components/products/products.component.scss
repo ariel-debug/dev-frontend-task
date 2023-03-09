@@ -10,7 +10,7 @@
 .description {
   display: flex;
   flex-direction: column;
-  width: 120px;
+  width: 100px;
 }
 
 .header {
@@ -40,10 +40,9 @@
 }
 
 .actions {
-  margin-right: 10px;
   width: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   button {
     margin-right: 8px;
   }
@@ -62,6 +61,11 @@
 .carousel-action {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 1rem;
+}
+
+.bottom {
+  padding: 0 1rem;
+  margin: 1rem auto;
 }

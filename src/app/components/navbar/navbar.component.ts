@@ -5,8 +5,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartProduct } from 'src/app/model/cart-product.model';
 import { MainService } from 'src/app/services/main.service';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-navbar',
@@ -21,15 +24,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
   );
   showDarkModeToggle: boolean = true;
   cartNr = 0;
+  addedProducts: CartProduct[] = [];
   constructor(
-    private mainService: MainService,
+    public mainService: MainService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.handleNavbarTitle();
     this.handleToggleVisibility();
+    this.mainService.cart.subscribe((res) => {
+      this.addedProducts = res;
+    });
   }
 
   toggleDarkMode() {
@@ -62,6 +70,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   navigateBack() {
     this.router.navigateByUrl('');
+  }
+
+  openDialog() {
+    let total = 0;
+    this.addedProducts.forEach((el) => {
+      total = total + el.totalPrice;
+    });
+    this.dialog.open(CartComponent, {
+      panelClass: 'dialog',
+      data: {
+        cartProducts: this.addedProducts,
+        total,
+      },
+    });
   }
 
   ngOnDestroy() {
