@@ -35,6 +35,9 @@ export class ProductsComponent implements OnInit {
     this.products = this.category.products;
     this.splitProducts();
     this.mainService.showDarkModeToggle.next(false);
+    this.mainService.cart.subscribe((res) => {
+      this.addedProducts = res;
+    });
   }
 
   getCategoryDetails() {
@@ -103,15 +106,13 @@ export class ProductsComponent implements OnInit {
     this.mainService.cart.next(this.addedProducts);
   }
 
-  removeFromCart(productName: string, unitPrice: number, index: number) {
-    if (!this.addedProducts.find((el) => el.name == productName)) {
-      return;
-    } else if (this.addedProducts.find((el) => el.name == productName)) {
-      this.addedProducts.forEach((el) => {
-        if (el.quantity == 1) {
-          this.addedProducts = this.addedProducts.splice(index, 1);
-        } else {
-          el.quantity = el.quantity - 1;
+  removeFromCart(productName: string, product: Product, index: number) {
+    if (this.addedProducts.find((el) => el.name == productName)) {
+      this.addedProducts.forEach((element) => {
+        if (element.quantity == 1 && element.name == product.name) {
+          this.addedProducts.splice(index, 1);
+        } else if (element.quantity > 1 && element.name == product.name) {
+          element.quantity = element.quantity - 1;
         }
       });
     }
@@ -119,5 +120,11 @@ export class ProductsComponent implements OnInit {
     this.mainService.cart.next(this.addedProducts);
   }
 
-  handleProductBadges(productName: string) {}
+  handleProductBadges(productName: string) {
+    let badgeNr = 0;
+    this.addedProducts.forEach((el) => {
+      if (el.name == productName) badgeNr = el.quantity;
+    });
+    return badgeNr;
+  }
 }

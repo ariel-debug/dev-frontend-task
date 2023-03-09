@@ -7,6 +7,11 @@
   </button>
   <span>{{ navbarTitle }}</span>
   <button mat-icon-button>
-    <mat-icon>shopping_cart</mat-icon>
+    <mat-icon
+      [matBadge]="handleCartBadge()"
+      [matBadgeHidden]="handleCartBadge() == 0"
+      matBadgeColor="warn"
+      >shopping_cart</mat-icon
+    >
   </button>
 </mat-toolbar>

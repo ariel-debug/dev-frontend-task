@@ -9,7 +9,12 @@
         }"
       >
         <mat-card class="card" *ngFor="let product of slide; let j = index">
-          <div class="logo" matBadgeColor="warn">
+          <div
+            class="logo"
+            [matBadge]="handleProductBadges(product.name)"
+            matBadgeColor="warn"
+            [matBadgeHidden]="handleProductBadges(product.name) == 0"
+          >
             <span>
               {{ iterateString(product.name) }}
             </span>
@@ -22,7 +27,7 @@
             <button
               mat-mini-fab
               color="warn"
-              (click)="removeFromCart(product.name, product.unitPrice, j)"
+              (click)="removeFromCart(product.name, product, j)"
             >
               <mat-icon>remove</mat-icon>
             </button>

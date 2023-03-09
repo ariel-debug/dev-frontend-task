@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     false
   );
   showDarkModeToggle: boolean = true;
+  cartNr = 0;
   constructor(
     private mainService: MainService,
     private router: Router,
@@ -46,6 +47,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.mainService.showDarkModeToggle.subscribe((res) => {
       this.showDarkModeToggle = res;
     });
+  }
+
+  handleCartBadge() {
+    let badgeNr = 0;
+    this.mainService.cart.subscribe((res) => {
+      res.forEach((el) => {
+        badgeNr = badgeNr + el.quantity;
+      });
+    });
+
+    return badgeNr;
   }
 
   navigateBack() {
