@@ -43,7 +43,6 @@ export class CategoriesComponent implements OnInit {
 
   getData() {
     this.mainService.getData().subscribe((res: any) => {
-      console.log(res);
       this.categories = res.categories;
       this.itemsCopy = res.categories;
       this.mainService.navbarTitle.next(res.businessName);

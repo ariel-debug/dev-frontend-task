@@ -10,9 +10,11 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { MainService } from './services/main.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './components/products/products.component';
+import { CartComponent } from './components/cart/cart.component';
+import { SuccessComponent } from './components/success/success.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, CategoriesComponent, ProductsComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriesComponent, ProductsComponent, CartComponent, SuccessComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

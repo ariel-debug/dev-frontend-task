@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -23,6 +25,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatDividerModule,
     MatCardModule,
     MatBadgeModule,
+    MatDialogModule,
+    MatCheckboxModule,
   ],
 })
 export class MaterialModule {}

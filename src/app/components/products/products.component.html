@@ -27,7 +27,9 @@
             <button
               mat-mini-fab
               color="warn"
-              (click)="removeFromCart(product.name, product, j)"
+              (click)="removeFromCart(product.name, product)"
+              class="mat-elevation-z0"
+              *ngIf="handleButtonVisibility(product.name)"
             >
               <mat-icon>remove</mat-icon>
             </button>
@@ -35,6 +37,7 @@
               mat-mini-fab
               color="primary"
               (click)="addToCart(product.name, product.unitPrice)"
+              class="mat-elevation-z0"
             >
               <mat-icon>add</mat-icon>
             </button>
@@ -43,13 +46,18 @@
       </div>
     </div>
   </div>
-  <div *ngIf="products.length > 0">
+  <div *ngIf="products.length > 0" class="carousel-action">
     <button mat-icon-button (click)="onPreviousClick()">
       <mat-icon>arrow_back</mat-icon>
     </button>
 
     <button mat-icon-button (click)="onNextClick()">
       <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+  <div class="cart-action" (click)="openDialog()">
+    <button mat-flat-button color="accent" style="border-radius: 100px">
+      Shiko faturen
     </button>
   </div>
 </div>

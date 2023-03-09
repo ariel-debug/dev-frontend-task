@@ -1,0 +1,34 @@
+<div>
+  <div id="header">
+    <mat-icon>schedule</mat-icon>
+    <span class="bill">Fatura</span>
+    <span class="total">{{ total }} ALL</span>
+  </div>
+  <div class="table">
+    <div *ngFor="let item of data.cartProducts; let i = index">
+      <div class="row">
+        <div class="logo">
+          <span>
+            {{ iterateString(item.name) }}
+          </span>
+        </div>
+        <span class="header">
+          {{ item.name }}
+        </span>
+        <span class="price">{{ item.quantity }} X {{ item.unitPrice }}</span>
+        <mat-checkbox
+          [checked]="true"
+          (change)="check(item.name, $event)"
+        ></mat-checkbox>
+      </div>
+      <mat-divider *ngIf="!(data.cartProducts.length == i + 1)"></mat-divider>
+    </div>
+  </div>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="warn">Anulo</button>
+  <button mat-button color="primary" [disabled]="total == 0" (click)="submit()">
+    Paguaj
+  </button>
+</mat-dialog-actions>

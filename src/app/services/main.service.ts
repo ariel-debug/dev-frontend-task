@@ -26,4 +26,26 @@ export class MainService {
   getData() {
     return this.httpClient.get('https://test.dev.al/test/');
   }
+
+  charAtIsUpper(position: number, string: string) {
+    let char = string.charAt(position);
+    if (!/[A-Z]|[\u0080-\u024F]/.test(char)) return;
+    return char;
+  }
+
+  iterateString(string: string) {
+    let returnString = '';
+    for (let i = 0; i < string.length; i++) {
+      const isUpperCase = this.charAtIsUpper(i, string);
+      const isLowerCase = (str: string) => /^[a-z]*$/.exec(str);
+      if (isUpperCase) {
+        returnString = string[i];
+        break;
+      } else if (isLowerCase(string[i])) {
+        returnString = string[i].toUpperCase();
+        break;
+      }
+    }
+    return returnString;
+  }
 }

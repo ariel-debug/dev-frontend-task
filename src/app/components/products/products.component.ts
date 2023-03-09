@@ -1,11 +1,11 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter } from 'rxjs';
 import { CartProduct } from 'src/app/model/cart-product.model';
 import { Category } from 'src/app/model/category.model';
 import { Product } from 'src/app/model/product.model';
 import { MainService } from 'src/app/services/main.service';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-products',
@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit {
   currentSlide = 0;
   direction = 'RL';
   addedProducts: CartProduct[] = [];
-  constructor(public mainService: MainService) {}
+  constructor(public mainService: MainService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getCategoryDetails();
@@ -66,26 +66,8 @@ export class ProductsComponent implements OnInit {
     this.currentSlide = next === this.productSlide.length ? 0 : next;
   }
 
-  iterateString(string: string) {
-    let returnString = '';
-    for (let i = 0; i < string.length; i++) {
-      const isUpperCase = this.charAtIsUpper(i, string);
-      const isLowerCase = (str: string) => /^[a-z]*$/.exec(str);
-      if (isUpperCase) {
-        returnString = string[i];
-        break;
-      } else if (isLowerCase(string[i])) {
-        returnString = string[i].toUpperCase();
-        break;
-      }
-    }
-    return returnString;
-  }
-
-  charAtIsUpper(position: number, string: string) {
-    let char = string.charAt(position);
-    if (!/[A-Z]|[\u0080-\u024F]/.test(char)) return;
-    return char;
+  iterateString(productName: string) {
+    return this.mainService.iterateString(productName);
   }
 
   addToCart(productName: string, unitPrice: number) {
@@ -94,11 +76,13 @@ export class ProductsComponent implements OnInit {
         name: productName,
         unitPrice,
         quantity: 1,
+        totalPrice: unitPrice * 1,
       });
     } else if (this.addedProducts.find((el) => el.name == productName)) {
       this.addedProducts.forEach((el) => {
         if (el.name == productName) {
           el.quantity = el.quantity + 1;
+          el.totalPrice = el.unitPrice * el.quantity;
         }
       });
     }
@@ -106,13 +90,15 @@ export class ProductsComponent implements OnInit {
     this.mainService.cart.next(this.addedProducts);
   }
 
-  removeFromCart(productName: string, product: Product, index: number) {
+  removeFromCart(productName: string, product: Product) {
     if (this.addedProducts.find((el) => el.name == productName)) {
       this.addedProducts.forEach((element) => {
         if (element.quantity == 1 && element.name == product.name) {
+          const index = this.addedProducts.indexOf(element);
           this.addedProducts.splice(index, 1);
         } else if (element.quantity > 1 && element.name == product.name) {
           element.quantity = element.quantity - 1;
+          element.totalPrice = element.totalPrice - element.unitPrice;
         }
       });
     }
@@ -126,5 +112,27 @@ export class ProductsComponent implements OnInit {
       if (el.name == productName) badgeNr = el.quantity;
     });
     return badgeNr;
+  }
+
+  handleButtonVisibility(productName: string) {
+    let visibility = false;
+    this.addedProducts.forEach((element) => {
+      if (element.name == productName) visibility = true;
+    });
+    return visibility;
+  }
+
+  openDialog() {
+    let total = 0;
+    this.addedProducts.forEach((el) => {
+      total = total + el.totalPrice;
+    });
+    this.dialog.open(CartComponent, {
+      panelClass: 'dialog',
+      data: {
+        cartProducts: this.addedProducts,
+        total,
+      },
+    });
   }
 }

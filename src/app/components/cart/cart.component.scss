@@ -1,0 +1,73 @@
+#header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bill {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.total {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaddff;
+
+  span {
+    color: #21005d;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  width: 88px;
+}
+
+.price {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+mat-divider {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.mat-dialog-actions {
+  margin-top: 2rem;
+}
