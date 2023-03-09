@@ -45,6 +45,8 @@ $dev-demo-dark-theme: mat.define-dark-theme(
 
 .darkMode {
   @include mat.all-component-themes($dev-demo-dark-theme);
+
+  border: 0px;
 }
 
 /* You can add global styles to this file, and also import other style files */
@@ -59,11 +61,25 @@ body {
   overflow: hidden;
 }
 
-router-outlet {
-  height: 100vh;
-}
+// router-outlet {
+//   height: 100vh;
+// }
 
 .centered {
   padding: 0 1rem;
   margin: 1rem auto;
+}
+
+$colors: #6750a4, #b3261e, #7d5260, #e46962, #21005d, #31111d, #878f99;
+
+.logo {
+  color: #fff;
+}
+
+@for $i from 1 through length($colors) {
+  .card:nth-child(#{length($colors)}n + #{$i}) {
+    .logo {
+      background: lighten(nth($colors, $i), 10%);
+    }
+  }
 }

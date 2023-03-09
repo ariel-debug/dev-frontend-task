@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Output() darkModeEmmitter: EventEmitter<boolean> = new EventEmitter<boolean>(
     false
   );
+  showDarkModeToggle: boolean = true;
   constructor(
     private mainService: MainService,
     private router: Router,
@@ -27,6 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.handleNavbarTitle();
+    this.handleToggleVisibility();
   }
 
   toggleDarkMode() {
@@ -37,6 +39,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   handleNavbarTitle() {
     this.mainService.navbarTitle.subscribe((res) => {
       this.navbarTitle = res;
+    });
+  }
+
+  handleToggleVisibility() {
+    this.mainService.showDarkModeToggle.subscribe((res) => {
+      this.showDarkModeToggle = res;
     });
   }
 

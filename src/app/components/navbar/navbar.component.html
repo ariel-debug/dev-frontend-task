@@ -1,8 +1,8 @@
 <mat-toolbar class="navbar">
-  <button mat-icon-button (click)="toggleDarkMode()">
+  <button mat-icon-button (click)="toggleDarkMode()" *ngIf="showDarkModeToggle">
     <mat-icon>{{ !modeToggler ? "dark_mode" : "light_mode" }}</mat-icon>
   </button>
-  <button mat-icon-button (click)="navigateBack()">
+  <button mat-icon-button (click)="navigateBack()" *ngIf="!showDarkModeToggle">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <span>{{ navbarTitle }}</span>

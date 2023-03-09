@@ -1,7 +1,4 @@
 .card {
-  height: 80px;
-  background: #fffbfe;
-  border: 1px solid #cac4d0;
   border-radius: 12px;
   display: flex;
   flex-direction: row;
@@ -22,7 +19,6 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.15px;
-  color: #1c1b1f;
 }
 
 .price {
@@ -32,7 +28,6 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.25px;
-  color: #1c1b1f;
 }
 
 .logo {
@@ -42,7 +37,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: teal;
 }
 
 .actions {
@@ -57,21 +51,18 @@
   flex: 1;
 }
 
-.carousel {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 0.5em;
-}
+// .carousel {
+//   position: relative;
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+//   border-radius: 0.5em;
+// }
 
-.slide {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  // zoom effect on hover
-  transition: transform 150ms cubic-bezier(0.25, 0.46, 0.45, 0.84);
-  border-radius: 0.5em;
-}
+// .slide {
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }

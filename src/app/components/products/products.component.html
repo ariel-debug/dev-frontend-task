@@ -8,8 +8,8 @@
           params: { direction: this.direction === 'RL' ? '100' : '-100' }
         }"
       >
-        <div class="card" *ngFor="let product of slide">
-          <div class="logo">
+        <mat-card class="card" *ngFor="let product of slide; let j = index">
+          <div class="logo" matBadgeColor="warn">
             <span>
               {{ iterateString(product.name) }}
             </span>
@@ -19,14 +19,22 @@
             <span class="price">{{ product.unitPrice }} Leke</span>
           </div>
           <div class="actions">
-            <button mat-mini-fab color="warn">
+            <button
+              mat-mini-fab
+              color="warn"
+              (click)="removeFromCart(product.name, product.unitPrice, j)"
+            >
               <mat-icon>remove</mat-icon>
             </button>
-            <button mat-mini-fab color="primary">
+            <button
+              mat-mini-fab
+              color="primary"
+              (click)="addToCart(product.name, product.unitPrice)"
+            >
               <mat-icon>add</mat-icon>
             </button>
           </div>
-        </div>
+        </mat-card>
       </div>
     </div>
   </div>
@@ -34,6 +42,7 @@
     <button mat-icon-button (click)="onPreviousClick()">
       <mat-icon>arrow_back</mat-icon>
     </button>
+
     <button mat-icon-button (click)="onNextClick()">
       <mat-icon>arrow_forward</mat-icon>
     </button>

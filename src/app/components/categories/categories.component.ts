@@ -24,6 +24,7 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.getData();
     this.handleState();
+    this.mainService.showDarkModeToggle.next(true);
   }
 
   handleState() {
@@ -59,6 +60,5 @@ export class CategoriesComponent implements OnInit {
   goToProducts(name: string, category: Category) {
     this.router.navigate([`${name}`], { skipLocationChange: true });
     this.mainService.category.next(category);
-    sessionStorage.setItem('category', JSON.stringify(category));
   }
 }
