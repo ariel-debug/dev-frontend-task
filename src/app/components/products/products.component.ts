@@ -17,6 +17,10 @@ import { CartComponent } from '../cart/cart.component';
         style({ transform: 'translateX({{direction}}%)' }),
         animate('400ms ease-out', style({ transform: 'translateX(0%)' })),
       ]),
+      transition('void => *', [
+        style({ transform: 'translateX({{direction}}%)' }),
+        animate('400ms ease-out', style({ transform: 'translateX(0%)' })),
+      ]),
     ]),
   ],
 })

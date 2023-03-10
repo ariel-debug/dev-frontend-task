@@ -53,12 +53,18 @@
     <button mat-icon-button (click)="onPreviousClick()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-
+    <div class="indicator-group">
+      <span
+        *ngFor="let item of productSlide; let i = index"
+        [ngClass]="i == currentSlide ? 'active-indicator' : 'indicator'"
+      >
+      </span>
+    </div>
     <button mat-icon-button (click)="onNextClick()">
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>
-  <div class="cart-action" (click)="openDialog()">
+  <div *ngIf="products.length > 0" class="cart-action" (click)="openDialog()">
     <button
       mat-flat-button
       color="accent"
