@@ -12,17 +12,36 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './components/products/products.component';
 import { CartComponent } from './components/cart/cart.component';
 import { SuccessComponent } from './components/success/success.component';
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto',
+};
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, CategoriesComponent, ProductsComponent, CartComponent, SuccessComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    CategoriesComponent,
+    ProductsComponent,
+    CartComponent,
+    SuccessComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    SwiperModule,
   ],
-  providers: [MainService],
+  providers: [
+    MainService,
+    { provide: SWIPER_CONFIG, useValue: DEFAULT_SWIPER_CONFIG },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

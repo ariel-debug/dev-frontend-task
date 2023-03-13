@@ -1,24 +1,19 @@
 import { trigger, transition, style, animate } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CartProduct } from 'src/app/model/cart-product.model';
 import { Category } from 'src/app/model/category.model';
 import { Product } from 'src/app/model/product.model';
 import { MainService } from 'src/app/services/main.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CartComponent } from '../cart/cart.component';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper/public-api';
+import { SwiperComponent } from 'ngx-swiper-wrapper/public-api';
+import { SwiperOptions } from 'swiper';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  animations: [
-    trigger('carouselAnimation', [
-      transition('void => *', [
-        style({ transform: 'translateX({{direction}}%)' }),
-        animate('400ms ease-out', style({ transform: 'translateX(0%)' })),
-      ]),
-    ]),
-  ],
 })
 export class ProductsComponent implements OnInit {
   category!: Category;
@@ -28,6 +23,16 @@ export class ProductsComponent implements OnInit {
   currentSlide = 0;
   direction = 'RL';
   addedProducts: CartProduct[] = [];
+
+  config: SwiperOptions = {
+    observer: true,
+    direction: 'horizontal',
+    threshold: 0,
+    spaceBetween: 16,
+    slidesPerView: 1,
+    centeredSlides: false,
+  };
+  @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
   constructor(public mainService: MainService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -54,18 +59,6 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  onPreviousClick() {
-    this.direction = 'LR';
-    const previous = this.currentSlide - 1;
-    this.currentSlide = previous < 0 ? this.productSlide.length - 1 : previous;
-  }
-
-  onNextClick() {
-    this.direction = 'RL';
-    const next = this.currentSlide + 1;
-    this.currentSlide = next === this.productSlide.length ? 0 : next;
-  }
-
   iterateString(productName: string) {
     return this.mainService.iterateString(productName);
   }
@@ -88,6 +81,7 @@ export class ProductsComponent implements OnInit {
     }
 
     this.mainService.cart.next(this.addedProducts);
+    localStorage.setItem('cart', JSON.stringify(this.addedProducts));
   }
 
   removeFromCart(productName: string, product: Product) {
@@ -104,6 +98,7 @@ export class ProductsComponent implements OnInit {
     }
 
     this.mainService.cart.next(this.addedProducts);
+    localStorage.setItem('cart', JSON.stringify(this.addedProducts));
   }
 
   handleProductBadges(productName: string) {
@@ -134,5 +129,17 @@ export class ProductsComponent implements OnInit {
         total,
       },
     });
+  }
+
+  slideNext() {
+    this.swiper?.directiveRef?.nextSlide();
+  }
+  slidePrev() {
+    this.swiper?.directiveRef?.prevSlide();
+  }
+
+  indexChange(event: number) {
+    this.currentSlide = event;
+    console.log(this.currentSlide);
   }
 }

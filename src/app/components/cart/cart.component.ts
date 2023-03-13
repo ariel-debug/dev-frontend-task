@@ -49,10 +49,13 @@ export class CartComponent implements OnInit {
         }
       });
     }
+
+    localStorage.setItem('cart', JSON.stringify(this.cartProducts));
   }
 
   submit() {
     this.mainService.cart.next([]);
+    localStorage.setItem('cart', JSON.stringify(this.cartProducts));
     this.dialog.closeAll();
     this.dialog.open(SuccessComponent, {
       panelClass: 'dialog',

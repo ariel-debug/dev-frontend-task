@@ -1,12 +1,9 @@
 <div class="centered">
   <div class="carousel">
-    <div *ngFor="let slide of productSlide; let i = index" class="slide">
+    <swiper #swiper [config]="config" (indexChange)="indexChange($event)">
       <div
-        *ngIf="i === currentSlide"
-        [@carouselAnimation]="{
-          value: '',
-          params: { direction: this.direction === 'RL' ? '100' : '-100' }
-        }"
+        class="swiper-slide"
+        *ngFor="let slide of productSlide; let i = index"
       >
         <mat-card class="card" *ngFor="let product of slide; let j = index">
           <div
@@ -44,23 +41,30 @@
           </div>
         </mat-card>
       </div>
-    </div>
+    </swiper>
   </div>
 </div>
 
 <div class="bottom">
   <div *ngIf="products.length > 0" class="carousel-action">
-    <button mat-icon-button (click)="onPreviousClick()">
+    <button
+      mat-icon-button
+      (click)="slidePrev()"
+      [disabled]="currentSlide == 0"
+    >
       <mat-icon>arrow_back</mat-icon>
     </button>
     <div class="indicator-group">
       <span
         *ngFor="let item of productSlide; let i = index"
         [ngClass]="i == currentSlide ? 'active-indicator' : 'indicator'"
-      >
-      </span>
+      ></span>
     </div>
-    <button mat-icon-button (click)="onNextClick()">
+    <button
+      mat-icon-button
+      (click)="slideNext()"
+      [disabled]="currentSlide == productSlide.length - 1"
+    >
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>

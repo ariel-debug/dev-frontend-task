@@ -68,16 +68,18 @@ body {
   height: 77%;
 }
 
-$colors: #6750a4, #b3261e, #7d5260, #e46962, #21005d, #31111d, #878f99;
+@mixin random-bgr() {
+  background: hsl(random(360), random(100), random(50));
+}
 
 .logo {
   color: #fff;
 }
 
-@for $i from 1 through length($colors) {
-  .card:nth-child(#{length($colors)}n + #{$i}) {
+@for $i from 1 through 100 {
+  .card:nth-child(#{$i}) {
     .logo {
-      background: lighten(nth($colors, random(length($colors))), 0%);
+      @include random-bgr();
     }
   }
 }

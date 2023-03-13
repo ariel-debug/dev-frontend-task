@@ -21,7 +21,10 @@ export class MainService {
     true
   );
   cart: BehaviorSubject<CartProduct[]> = new BehaviorSubject<CartProduct[]>([]);
-  constructor(private httpClient: HttpClient) {}
+  currentCart = JSON.parse(localStorage.getItem('cart')!);
+  constructor(private httpClient: HttpClient) {
+    this.currentCart ? this.cart.next(this.currentCart) : this.cart.next([]);
+  }
 
   getData() {
     return this.httpClient.get('https://test.dev.al/test/');
