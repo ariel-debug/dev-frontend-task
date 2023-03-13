@@ -140,6 +140,5 @@ export class ProductsComponent implements OnInit {
 
   indexChange(event: number) {
     this.currentSlide = event;
-    console.log(this.currentSlide);
   }
 }
